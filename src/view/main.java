@@ -12,7 +12,7 @@ public class main {
 		int valortransacao;
 		int saldo;
 		int operacao;
-		Semaphore semaforo = new Semaphore(2);
+		Semaphore semaforo = new Semaphore(1);
 		Semaphore semaforo2 = new Semaphore(1);
 		for(int i=0;i<20;i++) {
 			operacao=gerador.nextInt(2)+1;

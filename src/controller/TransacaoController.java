@@ -24,40 +24,27 @@ public class TransacaoController extends Thread {
 	@Override
 	public void run() {
 		//	Essa logica de impedir saques e depositos simultaneos os ultimos serao igual;
-				if(aux==1) {
-					x=operacao;
-					aux++;
-				}else {
-					y=operacao;
-					aux=1;
-				}
-			if(x!=y) {	
-			try {
-				semaforo.acquire();
-				RealizaTransacao();
-			}catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				semaforo.release();
-			}
-			}
-			else {
+			if(operacao==1) {
 				try {
-					sleep(1000);
-				} catch (InterruptedException e1) {
+					semaforo.acquire();
+					RealizaTransacao();
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e.printStackTrace();
+				}finally {
+					semaforo.release();
 				}
-				try {
-				semaforo.acquire();
-				RealizaTransacao();
-			}catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				semaforo.release();
 			}
+			if(operacao==2) {
+				try {
+					semaforo2.acquire();
+					RealizaTransacao();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					semaforo2.release();
+				}
 			}
 		}
 	
